@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vuelos Rionegro</title>
+</head>
+<body>
+    <h1>Bienvenido a la gestión de vuelos</h1>
+    <ul>
+        <li><a href="{% url 'create_flight' %}">Registrar vuelos</a></li>
+        <li><a href="{% url 'list_flights' %}">Listar vuelos</a></li>
+        <li><a href="{% url 'flights_statistics' %}">Estadísticas de vuelos</a></li>
+    </ul>
+</body>
+</html>
