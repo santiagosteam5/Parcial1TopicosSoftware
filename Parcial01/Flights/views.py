@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Avg
 from .models import Flight as Flights
 from .form import FlightForm
 
@@ -24,13 +25,8 @@ def create_flight(request):
 
 
 def flights_statistics(request):
-    flights = Flights.objects.all()
-    national_flights = 0
-    international_flights = 0
-    for flight in flights:
-        if flight.flight_type == 'Nacional':
-            national_flights += 1
-        else:
-            international_flights += 1
+    national_flights = Flights.objects.filter(flight_type='Nacional').count()
+    international_flights = Flights.objects.filter(flight_type='Internacional').count()
+    avg_price_national = Flights.objects.filter(flight_type='Nacional').aggregate(Avg('flight_price'))['flight_price__avg'] or 0
     return render(request, 'flights_statistics.html',
-                  {'national_flights': national_flights, 'international_flights': international_flights})
+                  {'national_flights': national_flights, 'international_flights': international_flights, 'avg_price_national': avg_price_national})
